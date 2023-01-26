@@ -1,41 +1,44 @@
-
-function Producto (nombre, marca, precio) {
-        this.nombre = nombre
-        this.marca = marca
-        this.precio = precio
-}
-const producto1 = new Producto ("televisor","lg",56000)
-const producto2 = new Producto ("televisor","hitachi",62000)
-const producto3 = new Producto ("televisor","samsung",70000)
-const producto4 = new Producto ("celular","iphone",100000)
-const producto5 = new Producto ("celular","motorala",90000)
-const producto6 = new Producto ("celular","samsung",80000)
-const producto7 = new Producto ("computadora","lenovo",85000)
-const producto8 = new Producto ("computadora","samsung",76000)
-const producto9 = new Producto ("computadora","hp",70000)
+//declaraciones
 
 const productos = [producto1, producto2, producto3,producto4, producto5, producto6,producto7, producto8, producto9]
 
-let producto = prompt ("elija un producto televisor celular computadora")
 
-if (producto == "televisor" || producto == "celular" || producto == "computadora") {
-    if (producto == "televisor"){
-        const marcaProducto = prompt ("elija la marca de su televisor lg hitachi samsung")
-        const filter2 = productos.filter ((productos)=> productos.marca === marcaProducto)
-        console.log(filter2) }
-    if (producto == "celular"){
-        const marcaProducto = prompt ("elija la marca de su celular iphone motorola samsung")
-        const filter2 = productos.filter ((productos)=> productos.marca === marcaProducto)
-        console.log(filter2) }
-    if (producto == "computadora"){
-        const marcaProducto = prompt ("elija la marca de su computadora lenovo samsung hp")
-        const filter2 = productos.filter ((productos)=> productos.marca === marcaProducto)
-        console.log(filter2) }
-    }   else {
-        alert ("el producto que usted desea comprar no existe") }
-    
+//query de elementos
+const listaProductos = document.querySelector ("#listaProductos")
+
+//funciones
+const agregarAlCarrito = (e) => {
+console.log (e.target.closest (".buttonAgregar").getAttribute (`data-id`))
+}
+const renderizarProductos = () => {
+    productos.forEach ((prod)=> {
+        const productosButton = document.createElement ("button")
+        productosButton.classList.add ("buttonAgregar")
+        productosButton.setAttribute ("data-id",prod.id)
+        productosButton.innerHTML = `
+        <div class="cardProducto">
+            <img src="./imagenes/D_NQ_NP_975834-MLA51015201380_082022-V.jpg" alt="${prod.id}">
+            <h3 class="nombreProducto">${prod.nombre}</h3>
+            <h4 class="marcaProducto">${prod.marca}</h4>
+            <h4 class="precioproducto">$ ${prod.precio}</h4>
+          
+        </div>`
+
+        listaProductos.append (productosButton)
+    })
+    const productoButtons = document.querySelectorAll (".buttonAgregar")
+    productoButtons.forEach ((button) => {
+        button.addEventListener ("click", agregarAlCarrito )
+    })
+}
 
 
+        
+   
 
 
+//eventlisteners
 
+
+//ejecuciones
+renderizarProductos()
